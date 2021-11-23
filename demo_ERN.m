@@ -1,4 +1,4 @@
-%% ERN dataset£¬16 subjects, each 56*260*340 (channels*points*trails)
+%% ERN datasetÂ£Â¬16 subjects, each 56*260*340 (channels*points*trails)
 clc;
 clear;
 root='data\ERN\';
@@ -61,7 +61,7 @@ for n=1:nSubs
     options.sigma =0.1;
     options.lambda =0.1;     
     Ys(Ys==0)=2;Yt(Yt==0)=2;
-    options.idxs=1:15;
+    options.idx=1:15;
     [Ypre] = MMFT(Xs,Ys,Xt,options);
     bca=.5*(mean(Ypre(idsP)==1)+mean(Ypre(idsN)==2))*100;
 
