@@ -43,7 +43,7 @@ function [Yt_pred] = LSA_MMFT_RSVP(Xs,Ys,Xt,options)
         for r=index
             num=trials(r);
             XX=cat(2,X(:,total+1:total+num),X(:,n+1:end));
-            K = kernel_meda(options.Kernel_type,XX,sqrt(sum(sum(XX.^0.5)/(num + m))));   
+            K = kernel_mmft(options.Kernel_type,XX,sqrt(sum(sum(XX.^0.5)/(num + m))));   
             w=ones(num,1); 
             w(Ys(total+1:total+num)==2)=sum(Ys(total+1:total+num)==1)/sum(Ys(total+1:total+num)==2);
             E = diag(sparse([w;zeros(m,1)]));
@@ -95,7 +95,7 @@ function [Yt_pred] = LSA_MMFT_RSVP(Xs,Ys,Xt,options)
     Yt_pred = Cls;        
 end
 
-function K = kernel_meda(ker,X,sigma)
+function K = kernel_mmft(ker,X,sigma)
     switch ker
         case 'linear'
             K = X' * X;
