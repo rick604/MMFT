@@ -40,7 +40,7 @@ function [Yt_pred] = LSA_MMFT(Xs,Ys,Xt,options)
         end       
         for r=idx
             XX=cat(2,X(:,1+(r-1)*m:r*m),X(:,n+1:end));
-            K = kernel_meda(options.Kernel_type,XX,sqrt(sum(sum(XX.^0.5)/(m + m))));   
+            K = kernel_mmft(options.Kernel_type,XX,sqrt(sum(sum(XX.^0.5)/(m + m))));   
             w=ones(m,1);
             w(Ys(1+(r-1)*m:r*m)==2)=(sum(Ys(1+(r-1)*m:r*m)==1)/sum(Ys(1+(r-1)*m:r*m)==2));
             E = diag(sparse([w;zeros(m,1)])); 
@@ -88,7 +88,7 @@ function [Yt_pred] = LSA_MMFT(Xs,Ys,Xt,options)
     Yt_pred =Cls;
 end
 
-function K = kernel_meda(ker,X,sigma)
+function K = kernel_mmft(ker,X,sigma)
     switch ker
         case 'linear'
             K = X' * X;
