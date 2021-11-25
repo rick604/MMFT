@@ -38,7 +38,7 @@ for ii=1:options.T
     for r=idx
         num=trials(r);
         XX=cat(2,X(:,total+1:total+num),X(:,n+1:end));
-        K = kernel_meda(options.Kernel_type,XX,sqrt(sum(sum(XX.^0.5)/(num + m)))); 
+        K = kernel_mmft(options.Kernel_type,XX,sqrt(sum(sum(XX.^0.5)/(num + m)))); 
         
         % w-MMFT for class imbalance situation
         w=ones(num,1);
@@ -80,7 +80,7 @@ end
 Yt_pred = Cls;  
 end
 
-function K = kernel_meda(ker,X,sigma)
+function K = kernel_mmft(ker,X,sigma)
     switch ker
         case 'linear'
             K = X' * X;
